@@ -18,7 +18,7 @@ namespace Tournament {
       };
       Score score(const Tournament::Bracket& bracket, const Tournament::Bracket& picks) const;
       virtual int scoreOf(int r, int w, int l) const = 0;
-      virtual std::string name() { return name_; };
+      virtual std::string name() const { return name_; };
     protected:
       std::vector<Tournament::Team>& teams;
       std::string name_;

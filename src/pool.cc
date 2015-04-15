@@ -21,11 +21,11 @@ void test(Tournament::Scorer* scorer, Tournament::Bracket& b, std::vector<Tourna
 }
 
 int main(int argc, char *argv[]) {
- 
+
   std::vector<Tournament::Team> teams = Tournament::sampleNcaaTeams;
   Tournament::Bracket small = Tournament::Bracket::randomBracket(64, 39);
   std::cout << "RANDOM BRACKET: " << small << std::endl;
-  Tournament::BasicScorer scorer =  Tournament::BasicScorer(teams);
+  const Tournament::Scorer& scorer =  Tournament::BasicScorer(teams);
   std::vector<Tournament::Bracket> small_picks;
   for (int i = 0; i < 10; i++) {
     small_picks.push_back(Tournament::Bracket::randomBracket(64));
@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
   std::cout << "RESULTS: " << Tournament::uint64ToBits(b.results()) << std::endl;
   std::cout << "FLIPPED: " << Tournament::uint64ToBits(Tournament::flipBits(b.results())) << std::endl;
   for (int j = 0; j < b.rounds(); ++j) {
-    std::cout << " -> Round: " << (j+1) << ": gamesInRound: " << b.gamesInRound(j) << " played: " << b.gamesPlayedInRound(j) << 
+    std::cout << " -> Round: " << (j+1) << ": gamesInRound: " << b.gamesInRound(j) << " played: " << b.gamesPlayedInRound(j) <<
       " offset: " << b.roundOffset(j) << " mask: " << Tournament::uint64ToBits(b.roundMask(j)) << std::endl;
   }
   std::cout << "Results: Winner: " << b.winner() << std::endl;
