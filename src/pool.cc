@@ -23,7 +23,7 @@ void test(Tournament::Scorer* scorer, Tournament::Bracket& b, std::vector<Tourna
 int main(int argc, char *argv[]) {
 
   std::vector<Tournament::Team> teams = Tournament::sampleNcaaTeams;
-  Tournament::Bracket small = Tournament::Bracket::randomBracket(64, 39);
+  Tournament::Bracket small = Tournament::Bracket::randomBracket(64, 48);
   std::cout << "RANDOM BRACKET: " << small << std::endl;
   const Tournament::Scorer& scorer =  Tournament::BasicScorer(teams);
   std::vector<Tournament::Bracket> small_picks;
@@ -35,14 +35,30 @@ int main(int argc, char *argv[]) {
   Tournament::Possibilities poss3(small, scorer, 2, 3);
   std::chrono::high_resolution_clock::time_point t1, t2;
   t1 = std::chrono::high_resolution_clock::now();
-  poss1.scorePicks(small_picks);
-  poss2.scorePicks(small_picks);
-  poss3.scorePicks(small_picks);
+  std::vector<Tournament::Possibilities::Stats> stats1 = poss1.scorePicks(small_picks);
+  std::vector<Tournament::Possibilities::Stats> stats2 = poss2.scorePicks(small_picks);
+  std::vector<Tournament::Possibilities::Stats> stats3 = poss3.scorePicks(small_picks);
   t2 = std::chrono::high_resolution_clock::now();
   int64_t duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
   int sps = (double) small.numberOfOutcomes() * 10 / (duration / 1e6);
-  std::cout << " " << small.numberOfOutcomes() << " scores of 10 brackets using " << scorer.name() << " scorer: " << duration << "ms sps: " << sps << std::endl;
+  std::cout << " " << small.numberOfOutcomes() <<
+            " scores of 10 brackets using " << scorer.name() << " scorer: " <<
+            duration << "ms sps: " << sps << std::endl;
 
+  std::cout << "STATS:" << std::endl;
+  for(int i = 0; i < 10; ++i) {
+    Tournament::Possibilities::Stats& stats = stats1[i];
+    stats.merge(stats2[i]);
+    stats.merge(stats3[i]);
+    std::cout << "Pick " << (i+1) << ": maxScore: " << stats.maxScore <<
+                 " maxRank: " << stats.maxRank <<
+                 " minRank: " << stats.minRank <<
+                 " champCounts: " << stats.champCounts.size() << std::endl;
+    for(std::map<int,int>::const_iterator it = stats.champCounts.begin();
+        it != stats.champCounts.end(); ++it) {
+      std::cout << "  champ: " << it->first << " => " << it->second << std::endl;
+    }
+  }
   return 0;
 
   for (uint64_t i = 25; i < 32; ++i) {

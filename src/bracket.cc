@@ -40,9 +40,8 @@ bool Tournament::Bracket::isPlayed(int round, int game) const {
 
 int Tournament::Bracket::winner() const {
   if (isPlayed(rounds_ - 1, 0)) {
-    Tournament::Bracket::Result final_result;
-    result(rounds_ - 1, 0, final_result);
-    return final_result.winner;
+    Tournament::Bracket::Result& result = finalResult(rounds_ - 1, 0);
+    return result.winner;
   } else {
     return -1;
   }

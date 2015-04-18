@@ -5,6 +5,16 @@
 #include <iterator>
 #include <stdint.h>
 
+struct PossibleScore {
+  int pickIndex;
+  int score;
+  int champ;
+} _PossibleScore;
+
+bool sortScores(const PossibleScore& first, const PossibleScore& second) {
+  return first.score > second.score;
+}
+
 Tournament::Possibilities::Possibilities(const Tournament::Bracket& b, const Tournament::Scorer& s, int batch, int num_batches) :
     bracket_(b), scorer_(s), batch_(batch), number_of_batches_(num_batches), shifts_(NULL) {
   reset();
@@ -37,14 +47,19 @@ void Tournament::Possibilities::reset() {
   end_ = batch_ == number_of_batches_ - 1 ?  0ULL : bracket_.numberOfOutcomes() - offset - limit;
 }
 
-void Tournament::Possibilities::scorePicks(const std::vector<Tournament::Bracket>& picks) {
+std::vector<Tournament::Possibilities::Stats>
+  Tournament::Possibilities::scorePicks(const std::vector<Tournament::Bracket>& picks) {
   uint64_t possibility = start_;
   uint64_t played = (1ULL << (bracket_.numberOfTeams() - 1)) - 1;
   uint64_t count = 0ULL;
   uint64_t total = start_ - end_ + 1;
-  std::cout << "Checking " << total << " outcomes: " << bracket_ << std::endl;
+  std::cout << "Checking " << total << " outcomes of bracket: " << bracket_ << std::endl;
+  std::cout << "Number of entries: " << picks.size() << std::endl;
   std::cout << "Start: " << start_ << " -> End: " << end_ << std::endl;
   std::cout << "Total Outcomes: " << bracket_.numberOfOutcomes() << std::endl;
+
+  std::vector<Stats> allStats(picks.size());
+  std::vector<PossibleScore> pickScores(picks.size());
   while (possibility != end_) {
     uint64_t real_poss = 0;
     for(int i = 0; i < games_left_; ++i) {
@@ -54,8 +69,35 @@ void Tournament::Possibilities::scorePicks(const std::vector<Tournament::Bracket
     Tournament::Bracket possible_bracket(bracket_.numberOfTeams(), real_poss, played);
     for(int p = 0; p < picks.size(); p++) {
       Tournament::Scorer::Score score = scorer_.score(possible_bracket, picks[p]);
+      pickScores[p].pickIndex = p;
+      pickScores[p].score = score.score;
+      pickScores[p].champ = possible_bracket.winner();
       //std::cout <<  "POSS: " << possibility << ": " << picks[p] << " <-> " << possible_bracket << ": score=" << score.score << " max=" << score.max << std::endl;
     }
+    std::sort(pickScores.begin(), pickScores.end(), sortScores);
+    int currentScore = pickScores[0].score;
+    int actualRank = 1;
+    for(int i = 0; i < picks.size(); ++i) {
+      PossibleScore& score = pickScores[i];
+      Tournament::Possibilities::Stats& stats = allStats[score.pickIndex];
+      if (score.score < currentScore) {
+        actualRank++;
+        currentScore = score.score;
+      }
+      if (score.score > stats.maxScore) {
+        stats.maxScore = score.score;
+      }
+      if (actualRank < stats.maxRank) {
+        stats.maxRank = actualRank;
+      }
+      if (actualRank > stats.minRank) {
+        stats.minRank = actualRank;
+      }
+      if (actualRank == 1) {
+        stats.champCounts[score.champ]++;
+      }
+    }
+
     if (possibility == end_) {
       break;
     }
@@ -65,4 +107,6 @@ void Tournament::Possibilities::scorePicks(const std::vector<Tournament::Bracket
     count++;
     possibility--;
   }
+  std::cout << std::endl << "Done." << std::endl;
+  return allStats;
 }
