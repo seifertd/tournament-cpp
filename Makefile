@@ -8,7 +8,7 @@ CPPFLAGS=-Ofast -fPIC -I ./include
 LDFLAGS=-Ofast
 LDLIBS=
 
-SRCS=src/pool.cc src/bracket.cc src/tournament.cc src/scorer.cc src/possibilities.cc
+SRCS=src/pool.cc src/bracket.cc src/tournament.cc src/scorer.cc src/possibilities.cc src/stats.cc
 OBJS=$(subst .cc,.o,$(SRCS))
 
 all: pool

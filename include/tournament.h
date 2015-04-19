@@ -5,6 +5,7 @@
 #include "tournament/bracket.h"
 #include "tournament/team.h"
 #include "tournament/scorer.h"
+#include "tournament/stats.h"
 #include "tournament/possibilities.h"
 namespace Tournament {
   int bitsSetIn(uint64_t number);

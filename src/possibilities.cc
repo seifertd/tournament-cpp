@@ -47,7 +47,7 @@ void Tournament::Possibilities::reset() {
   end_ = batch_ == number_of_batches_ - 1 ?  0ULL : bracket_.numberOfOutcomes() - offset - limit;
 }
 
-std::vector<Tournament::Possibilities::Stats>
+std::vector<Tournament::Stats>
   Tournament::Possibilities::scorePicks(const std::vector<Tournament::Bracket>& picks) {
   uint64_t possibility = start_;
   uint64_t played = (1ULL << (bracket_.numberOfTeams() - 1)) - 1;
@@ -79,7 +79,7 @@ std::vector<Tournament::Possibilities::Stats>
     int actualRank = 1;
     for(int i = 0; i < picks.size(); ++i) {
       PossibleScore& score = pickScores[i];
-      Tournament::Possibilities::Stats& stats = allStats[score.pickIndex];
+      Tournament::Stats& stats = allStats[score.pickIndex];
       if (score.score < currentScore) {
         actualRank++;
         currentScore = score.score;
