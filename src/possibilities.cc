@@ -48,15 +48,18 @@ void Tournament::Possibilities::reset() {
 }
 
 std::vector<Tournament::Stats>
-  Tournament::Possibilities::scorePicks(const std::vector<Tournament::Bracket>& picks) {
+  Tournament::Possibilities::scorePicks(const std::vector<Tournament::Bracket>& picks,
+  bool debug) {
   uint64_t possibility = start_;
   uint64_t played = (1ULL << (bracket_.numberOfTeams() - 1)) - 1;
   uint64_t count = 0ULL;
   uint64_t total = start_ - end_ + 1;
-  std::cout << "Checking " << total << " outcomes of bracket: " << bracket_ << std::endl;
-  std::cout << "Number of entries: " << picks.size() << std::endl;
-  std::cout << "Start: " << start_ << " -> End: " << end_ << std::endl;
-  std::cout << "Total Outcomes: " << bracket_.numberOfOutcomes() << std::endl;
+  if (debug) {
+    std::cout << "Checking " << total << " outcomes of bracket: " << bracket_ << std::endl;
+    std::cout << "Number of entries: " << picks.size() << std::endl;
+    std::cout << "Start: " << start_ << " -> End: " << end_ << std::endl;
+    std::cout << "Total Outcomes: " << bracket_.numberOfOutcomes() << std::endl;
+  }
 
   std::vector<Stats> allStats(picks.size());
   std::vector<PossibleScore> pickScores(picks.size());
@@ -101,12 +104,12 @@ std::vector<Tournament::Stats>
     if (possibility == end_) {
       break;
     }
-    if ((count % 10000ULL) == 0) {
+    if (debug && (count % 10000ULL) == 0) {
       std::cout << count << "/" << total << "\r" << std::flush;
     }
     count++;
     possibility--;
   }
-  std::cout << std::endl << "Done." << std::endl;
+  if (debug) { std::cout << std::endl << "Done." << std::endl; }
   return allStats;
 }

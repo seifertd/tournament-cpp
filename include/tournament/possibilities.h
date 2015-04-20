@@ -11,7 +11,7 @@ namespace Tournament {
       Possibilities(const Bracket& b, const Scorer& s, int batch = 0, int num_batches = 1);
       virtual ~Possibilities();
       void reset();
-      std::vector<Stats> scorePicks(const std::vector<Bracket>& picks);
+      std::vector<Stats> scorePicks(const std::vector<Bracket>& picks, bool debug = false);
     private:
       const Bracket& bracket_;
       const Scorer& scorer_;
