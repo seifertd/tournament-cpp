@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <iterator>
 #include <stdint.h>
+#include "ez/progress.h"
 
 struct PossibleScore {
   int pickIndex;
@@ -52,7 +53,6 @@ std::vector<Tournament::Stats>
   bool debug) {
   uint64_t possibility = start_;
   uint64_t played = (1ULL << (bracket_.numberOfTeams() - 1)) - 1;
-  uint64_t count = 0ULL;
   uint64_t total = start_ - end_ + 1;
   if (debug) {
     std::cout << "Checking " << total << " outcomes of bracket: " << bracket_ << std::endl;
@@ -61,8 +61,14 @@ std::vector<Tournament::Stats>
     std::cout << "Total Outcomes: " << bracket_.numberOfOutcomes() << std::endl;
   }
 
+  ez::Progress progress(total);
+  progress.width = 60;
+
   std::vector<Stats> allStats(picks.size());
   std::vector<PossibleScore> pickScores(picks.size());
+  if (debug) {
+    progress.start();
+  }
   while (possibility != end_) {
     uint64_t real_poss = 0;
     for(int i = 0; i < games_left_; ++i) {
@@ -104,10 +110,9 @@ std::vector<Tournament::Stats>
     if (possibility == end_) {
       break;
     }
-    if (debug && (count % 10000ULL) == 0) {
-      std::cout << count << "/" << total << "\r" << std::flush;
+    if (debug) {
+      ++progress;
     }
-    count++;
     possibility--;
   }
   if (debug) { std::cout << std::endl << "Done." << std::endl; }
