@@ -11,10 +11,7 @@ std::ostream& Tournament::operator<<(std::ostream& out, const Tournament::Stats&
   out << "  \"maxRank\": " << s.maxRank << ", " << std::endl;
   out << "  \"minRank\": " << s.minRank << ", " << std::endl;
   out << "  \"maxScore\": " << s.maxScore << ", " << std::endl;
-<<<<<<< HEAD
-=======
   out << "  \"name\": \"" << s.name << "\", " << std::endl;
->>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
   out << "  \"champs\": {" << std::endl;
   for(std::map<int,int>::const_iterator it = s.champCounts.begin();
       it != s.champCounts.end(); ++it) {

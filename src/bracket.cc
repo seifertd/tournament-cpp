@@ -1,4 +1,6 @@
 #include "tournament.h"
+#include <cstdio>
+#include <cstdlib>
 #include <stdlib.h>
 #include <math.h>
 #include <sys/time.h>
@@ -6,13 +8,8 @@
 #include <iostream>
 #include <iomanip>
 
-<<<<<<< HEAD
-Tournament::Bracket::Bracket(int number_of_teams, uint64_t results, uint64_t played) : number_of_teams_(number_of_teams),
-    results_(results), played_(played) {
-=======
 Tournament::Bracket::Bracket(int number_of_teams, const std::string& name, uint64_t results, uint64_t played) : number_of_teams_(number_of_teams),
     name_(name), results_(results), played_(played) {
->>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
   rounds_ = (int) (log2(number_of_teams) + 0.5);
   round_ = 0;
   final_results_ = new std::vector<Tournament::Bracket::Result>(totalGames());
@@ -109,11 +106,7 @@ std::ostream& Tournament::operator<<(std::ostream &out, const Tournament::Bracke
   streamsize         oldPrec  = out.precision();
   char               oldFill  = out.fill();
 
-<<<<<<< HEAD
-  out << "Bracket(" << b.numberOfTeams() << "):";
-=======
   out << "Bracket(" << b.numberOfTeams() << "): " << b.name() << ": ";
->>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
   out << setprecision(16) << showbase << internal << setfill('0');
   out << " R: " << hex << setw(18) << b.results();
   out << " P: " << hex << setw(18) << b.played();
@@ -146,11 +139,9 @@ Tournament::Bracket Tournament::Bracket::randomBracket(int number_of_teams, int 
   gettimeofday(&t1, NULL);
   srand(t1.tv_usec * t1.tv_sec);
   using namespace Tournament;
-<<<<<<< HEAD
-  Bracket b(number_of_teams);
-=======
-  Bracket b(number_of_teams, "random");
->>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
+  char name[20];
+  sprintf(name, "random_%d", rand() % 999999 + 1);
+  Bracket b(number_of_teams, name);
   std::vector<int> teams;
   for (int t = 0; t < number_of_teams; ++t) {
     teams.push_back(t);

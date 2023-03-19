@@ -10,10 +10,7 @@ namespace Tournament {
     int maxRank;
     int minRank;
     int maxScore;
-<<<<<<< HEAD
-=======
     std::string name;
->>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
     std::map<int,int> champCounts;
     friend std::ostream& operator<<(std::ostream& out, const Stats &s);
     void merge(const Stats& other) {

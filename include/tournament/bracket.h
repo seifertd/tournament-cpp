@@ -14,16 +14,10 @@ namespace Tournament {
         int winner;
         int loser;
       };
-<<<<<<< HEAD
-      Bracket(int number_of_teams, uint64_t results = 0ULL, uint64_t played = 0ULL);
-      Bracket(const Bracket& b) {
-        number_of_teams_ = b.numberOfTeams();
-=======
       Bracket(int number_of_teams, const std::string& name, uint64_t results = 0ULL, uint64_t played = 0ULL);
       Bracket(const Bracket& b) {
         number_of_teams_ = b.numberOfTeams();
         name_ = b.name();
->>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
         rounds_ = b.rounds();
         results_ = b.results();
         played_ = b.played();
@@ -33,11 +27,8 @@ namespace Tournament {
       virtual ~Bracket();
       int totalGames() const { return number_of_teams_ - 1; };
       int numberOfTeams() const { return number_of_teams_; };
-<<<<<<< HEAD
-=======
       std::string name() const { return name_; };
       void setName(const std::string& newName) { name_ = newName; };
->>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
       int teamsLeft() const { return number_of_teams_ - gamesPlayed(); };
       uint64_t numberOfOutcomes() const { return 1ULL << (teamsLeft()-1); };
       int rounds() const { return rounds_; };
@@ -74,10 +65,7 @@ namespace Tournament {
       void matchInfo(int team_id, MatchInfo& info) const { return matchInfo(team_id, rounds_, info); };
       void matchInfo(int team_id, int round, MatchInfo& info) const;
       int number_of_teams_;
-<<<<<<< HEAD
-=======
       std::string name_;
->>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
       int rounds_;
       int round_;
       uint64_t results_;

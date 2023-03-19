@@ -71,17 +71,17 @@ public:
 		std::string out;
 		
 		if (days) {
-			sprintf(tmp, "%dd ", days);
+			sprintf(tmp, "%d d ", days);
 			out += tmp;
 		}
 		
 		if (hours >= 1) {
-			sprintf(tmp, "%dh ", hours);
+			sprintf(tmp, "%d h ", hours);
 			out += tmp;
 		}
 
 		if (mins >= 1) {
-			sprintf(tmp, "%dm ", mins);
+			sprintf(tmp, "%d m ", mins);
 			out += tmp;
 		}
 		
