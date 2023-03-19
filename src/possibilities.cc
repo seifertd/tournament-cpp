@@ -89,7 +89,8 @@ std::vector<Tournament::Stats>
     for(int i = 0; i < picks.size(); ++i) {
       PossibleScore& score = pickScores[i];
       Tournament::Stats& stats = allStats[score.pickIndex];
-      stats.name = picks[i].name();
+      stats.name = picks[score.pickIndex].name();
+      stats.bracketResults = picks[score.pickIndex].results();
       if (score.score < currentScore) {
         actualRank++;
         currentScore = score.score;

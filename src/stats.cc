@@ -12,6 +12,8 @@ std::ostream& Tournament::operator<<(std::ostream& out, const Tournament::Stats&
   out << "  \"minRank\": " << s.minRank << ", " << std::endl;
   out << "  \"maxScore\": " << s.maxScore << ", " << std::endl;
   out << "  \"name\": \"" << s.name << "\", " << std::endl;
+  out << "  \"bracketResults\": \"0x" << std::hex << s.bracketResults << "\", " << std::endl;
+  out.flags(oldFlags);
   out << "  \"champs\": {" << std::endl;
   for(std::map<int,int>::const_iterator it = s.champCounts.begin();
       it != s.champCounts.end(); ++it) {

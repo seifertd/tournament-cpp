@@ -6,10 +6,11 @@
 
 namespace Tournament {
   struct Stats {
-    Stats() : maxRank(1000000), minRank(-1), maxScore(-1) {}
+    Stats() : maxRank(1000000), minRank(-1), maxScore(-1), bracketResults(0) {}
     int maxRank;
     int minRank;
     int maxScore;
+    uint64_t bracketResults;
     std::string name;
     std::map<int,int> champCounts;
     friend std::ostream& operator<<(std::ostream& out, const Stats &s);

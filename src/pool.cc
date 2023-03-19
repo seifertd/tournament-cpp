@@ -187,7 +187,7 @@ int main(int argc, char *argv[]) {
   std::cout << "  \"pool\": {" << std::endl;
   std::cout << "      \"numTeams\": " << b.numberOfTeams() << "," << std::endl;
   std::cout << "      \"numOutcomes\": " << b.numberOfOutcomes() << "," << std::endl;
-  std::cout << "      \"name\": " << b.name() << std::endl;
+  std::cout << "      \"name\": \"" << b.name() << "\"" << std::endl;
   std::cout << "  }," << std::endl;
   std::cout << "  \"picks\": [" << std::endl;
   for(int i = 0; i < pool.num_entries; ++i) {
