@@ -5,8 +5,13 @@ CXX=g++
 RM=rm -f
 #CPPFLAGS=-Ofast -std=gnu++11 -fPIC -I ./include
 CPPFLAGS=-Ofast -fPIC -I ./include
+<<<<<<< HEAD
 LDFLAGS=-Ofast -L. -lpool
 LDLIBS=
+=======
+LDFLAGS=-Ofast -L.
+LDLIBS=-lpool
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
 LIBFILE=libpool.a
 
 LIBSRCS=src/bracket.cc src/tournament.cc src/scorer.cc src/possibilities.cc src/stats.cc

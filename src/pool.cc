@@ -153,7 +153,11 @@ int main(int argc, char *argv[]) {
     return 5;
   }
 
+<<<<<<< HEAD
   Tournament::Bracket b(pool.num_teams, pool.results, pool.played);
+=======
+  Tournament::Bracket b(pool.num_teams, "Tourny", pool.results, pool.played);
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
   std::vector<Tournament::Bracket> entries;
 
   if (pool.debug) {
@@ -164,9 +168,17 @@ int main(int argc, char *argv[]) {
   for(int i = 0; i < pool.num_entries; ++i) {
     uint64_t results;
     uint64_t played;
+<<<<<<< HEAD
     std::cin >> std::hex >> results;
     std::cin >> played;
     entries.push_back(Tournament::Bracket(pool.num_teams, results, played));
+=======
+    std::string name;
+    std::cin >> std::hex >> results;
+    std::cin >> std::hex >> played;
+    std::cin >> name;
+    entries.push_back(Tournament::Bracket(pool.num_teams, name, results, played));
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
     if (pool.debug) {
       std::cout << "Pick " << (i+1) << ": " << entries.back() << std::endl;
     }
@@ -184,7 +196,12 @@ int main(int argc, char *argv[]) {
   std::cout << "{" << std::endl;
   std::cout << "  \"pool\": {" << std::endl;
   std::cout << "      \"numTeams\": " << b.numberOfTeams() << "," << std::endl;
+<<<<<<< HEAD
   std::cout << "      \"numOutcomes\": " << b.numberOfOutcomes() << std::endl;
+=======
+  std::cout << "      \"numOutcomes\": " << b.numberOfOutcomes() << "," << std::endl;
+  std::cout << "      \"name\": " << b.name() << std::endl;
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
   std::cout << "  }," << std::endl;
   std::cout << "  \"picks\": [" << std::endl;
   for(int i = 0; i < pool.num_entries; ++i) {

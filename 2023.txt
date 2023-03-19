@@ -1,0 +1,6 @@
+0x6389eeae46540212 0x7fffffffffffffff RK
+0x4060e6c840001000 0x7fffffffffffffff SC
+0x3d086d0e06400242 0x7fffffffffffffff DataSource
+0x412888b600002446 0x7fffffffffffffff CC
+0x18f426c816d0da3e 0x7fffffffffffffff SD
+0x23a6e83812066446 0x7fffffffffffffff DAS

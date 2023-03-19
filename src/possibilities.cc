@@ -75,7 +75,11 @@ std::vector<Tournament::Stats>
       real_poss |= (((possibility & (1ULL << i)) ? 1ULL : 0ULL) << shifts_->at(i));
     }
     real_poss = bracket_.results() | real_poss;
+<<<<<<< HEAD
     Tournament::Bracket possible_bracket(bracket_.numberOfTeams(), real_poss, played);
+=======
+    Tournament::Bracket possible_bracket(bracket_.numberOfTeams(), bracket_.name(), real_poss, played);
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
     for(int p = 0; p < picks.size(); p++) {
       Tournament::Scorer::Score score = scorer_.score(possible_bracket, picks[p]);
       pickScores[p].pickIndex = p;
@@ -89,6 +93,10 @@ std::vector<Tournament::Stats>
     for(int i = 0; i < picks.size(); ++i) {
       PossibleScore& score = pickScores[i];
       Tournament::Stats& stats = allStats[score.pickIndex];
+<<<<<<< HEAD
+=======
+      stats.name = picks[i].name();
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
       if (score.score < currentScore) {
         actualRank++;
         currentScore = score.score;

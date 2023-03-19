@@ -1,4 +1,8 @@
 #include "tournament.h"
+<<<<<<< HEAD
+=======
+#include <cstdio>
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
 #include <iostream>
 #include <iomanip>
 #include <vector>
@@ -17,18 +21,36 @@ void test(Tournament::Scorer* scorer, Tournament::Bracket& b, std::vector<Tourna
   t2 = std::chrono::high_resolution_clock::now();
   int64_t duration = std::chrono::duration_cast<std::chrono::microseconds>( t2 - t1 ).count();
   int sps = (double) num_iterations * num_picks / (duration / 1e6);
+<<<<<<< HEAD
   std::cout << " " << num_iterations << " scores of " << num_picks << " brackets using " << scorer->name() << " scorer: " << duration << "ms sps: " << sps << std::endl;
+=======
+  std::cout << " " << num_iterations << " scores of " << num_picks << " brackets using " << scorer->name() << " scorer: " << duration << "μs sps: " << sps << std::endl;
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
 }
 
 int main(int argc, char *argv[]) {
 
   std::vector<Tournament::Team> teams = Tournament::sampleNcaaTeams;
+<<<<<<< HEAD
   Tournament::Bracket small = Tournament::Bracket::randomBracket(64, 46);
+=======
+  Tournament::Bracket small = Tournament::Bracket::randomBracket(64, 44);
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
   std::cout << "RANDOM BRACKET: " << small << std::endl;
   const Tournament::Scorer& scorer =  Tournament::BasicScorer(teams);
   std::vector<Tournament::Bracket> small_picks;
   for (int i = 0; i < 10; i++) {
+<<<<<<< HEAD
     small_picks.push_back(Tournament::Bracket::randomBracket(64));
+=======
+    Tournament::Bracket b = Tournament::Bracket::randomBracket(64);
+    std::string n = "Random Picks ";
+    char buffer[10];
+    sprintf(buffer, "%d", i);
+    n = n + buffer;
+    b.setName(n);
+    small_picks.push_back(b);
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
   }
   Tournament::Possibilities poss1(small, scorer, 0, 3);
   Tournament::Possibilities poss2(small, scorer, 1, 3);
@@ -43,7 +65,11 @@ int main(int argc, char *argv[]) {
   int sps = (double) small.numberOfOutcomes() * 10 / (duration / 1e6);
   std::cout << " " << small.numberOfOutcomes() <<
             " scores of 10 brackets using " << scorer.name() << " scorer: " <<
+<<<<<<< HEAD
             duration << "ms sps: " << sps << std::endl;
+=======
+            duration << "μs sps: " << sps << std::endl;
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
 
   std::cout << "STATS:" << std::endl;
   for(int i = 0; i < 10; ++i) {
@@ -59,7 +85,11 @@ int main(int argc, char *argv[]) {
   }
   uint64_t all = 0xefffffffffffffff;
   std::cout << "Number of bits in " << all << ": " << Tournament::bitsSetIn(all) << std::endl;
+<<<<<<< HEAD
   Tournament::Bracket unplayed(64);
+=======
+  Tournament::Bracket unplayed(64, "unplayed");
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
   std::cout << "UNPLAYED: " << unplayed.numberOfTeams() << " teams has " << unplayed.totalGames() << " games and " << unplayed.rounds() << " rounds." << std::endl;
   std::cout << "Games Played: " << unplayed.gamesPlayed() << std::endl;
   std::cout << "Teams Left: " << unplayed.teamsLeft() << std::endl;

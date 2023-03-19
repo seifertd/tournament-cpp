@@ -5,6 +5,10 @@
 #include <sstream>
 #include <string>
 #include <vector>
+<<<<<<< HEAD
+=======
+#include <iterator>
+>>>>>>> d719525 (minor bug fixes, allow tracking entry by name)
 
 namespace Tournament {
   static int def_valMultipliers [] = {1,2,4,8,16,32};
