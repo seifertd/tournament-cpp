@@ -21,7 +21,7 @@ TESTOBJS=$(subst .cc,.o,$(TESTSRCS))
 all: pool test
 
 lib: $(LIBOBJS)
-	ar ru $(LIBFILE) $(LIBOBJS)
+	ar cr $(LIBFILE) $(LIBOBJS)
 
 pool: $(OBJS) lib
 	$(CXX) $(LDFLAGS) -o pool $(OBJS) $(LDLIBS)
