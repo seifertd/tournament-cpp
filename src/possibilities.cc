@@ -69,6 +69,10 @@ std::vector<Tournament::Stats>
   if (debug) {
     progress.start();
   }
+  for (int p = 0; p < picks.size(); p++) {
+    allStats[p].name = picks[p].name();
+    allStats[p].bracketResults = picks[p].results();
+  }
   while (possibility != end_) {
     uint64_t real_poss = 0;
     for(int i = 0; i < games_left_; ++i) {
@@ -89,8 +93,6 @@ std::vector<Tournament::Stats>
     for(int i = 0; i < picks.size(); ++i) {
       PossibleScore& score = pickScores[i];
       Tournament::Stats& stats = allStats[score.pickIndex];
-      stats.name = picks[score.pickIndex].name();
-      stats.bracketResults = picks[score.pickIndex].results();
       if (score.score < currentScore) {
         actualRank++;
         currentScore = score.score;
